@@ -1,2 +1,2 @@
 # Load in common requirements
--r requirements/common.txt
+-r common.txt

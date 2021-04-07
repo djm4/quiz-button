@@ -1,2 +1,3 @@
 # Load in common requirements
--r requirements/common.txt
+-r common.txt
+greenlet==1.0.0
