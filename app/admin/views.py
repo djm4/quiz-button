@@ -3,7 +3,7 @@ from flask_login import login_required
 from . import admin
 
 
-@admin.route('/admin')
+@admin.route('/')
 @login_required
-def login():
+def index():
     return render_template('admin/index.html')

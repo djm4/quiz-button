@@ -6,6 +6,8 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'correctbatteryhorsestaple'
 #    FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SUPERUSER_NAME = os.environ.get('SUPERUSER_NAME', None)
+    SUPERUSER_PASSWORD = os.environ.get('SUPERUSER_PASSWORD', None)
 
     @staticmethod
     def init_app(app):

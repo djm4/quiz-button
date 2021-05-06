@@ -1,6 +1,6 @@
 {% extends "bootstrap/base.html" %}
 
-{% block title %}Quiz Button{% endblock %}
+{% block title %}Quiz Button admin{% endblock %}
 
 {% block head %}
 {{ super() }}
@@ -23,7 +23,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="{{ url_for('main.index') }}">Home</a></li>
-                {% if current_user.is_authenticated and current_user.role.name in ('Superuser', 'Admin') %}
+                {% if current_user.role.name in ('Superuser', 'Admin') %}
                     <li><a href="/admin/">Admin</a></li>
                 {% endif %}
             </ul>

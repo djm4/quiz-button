@@ -2,6 +2,7 @@ from . import db
 import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from flask import current_app
 from . import login_manager
 
 
@@ -18,6 +19,16 @@ class Role(db.Model):
 
     def __repr__(self):
         return '<Role %r>' % self.name
+
+    @staticmethod
+    def insert_roles():
+        roles = ['Superuser', 'Admin']
+        for r in roles:
+            role = Role.query.filter_by(name=r).first()
+            if role is None:
+                role = Role(name=r)
+            db.session.add(role)
+        db.session.commit()
 
 
 class User(UserMixin, db.Model):
@@ -41,6 +52,19 @@ class User(UserMixin, db.Model):
 
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    @staticmethod
+    def add_initial_login():
+        username = current_app.config['SUPERUSER_NAME']
+        password = current_app.config['SUPERUSER_PASSWORD']
+        if username and password:
+            user = User.query.filter_by(username=username).first()
+            if user is None:
+                user = User(username=username)
+                user.password = password
+                user.role = Role.query.filter_by(name='Superuser').first()
+                db.session.add(user)
+                db.session.commit()
 
 
 class Game(db.Model):
